@@ -1,4 +1,4 @@
-from models.culture import Culture
+# from models.culture import Culture
 
 class Artifact:
-    all= []
+    pass

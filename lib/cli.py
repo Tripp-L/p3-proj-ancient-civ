@@ -7,11 +7,11 @@ from helpers import (
     find_culture_by_name,
     update_culture,
     delete_culture,
-    create_diety,
-    view_all_dieties,
-    find_diety_by_name,
-    update_diety,
-    delete_diety,
+    create_deity,
+    view_all_deities,
+    find_deity_by_name,
+    update_deity,
+    delete_deity,
     create_artifact,
     view_all_artifacts,
     find_artifact_by_name,
@@ -42,15 +42,15 @@ def main():
         elif choice == "5":
             delete_culture()
         elif choice == "6":
-            create_diety()
+            create_deity()
         elif choice == "7":
-            view_all_dieties()
+            view_all_deities()
         elif choice == "8":
-            find_diety_by_name()
+            find_deity_by_name()
         elif choice == "9":
-            update_diety()
+            update_deity()
         elif choice == "10":
-            delete_diety()
+            delete_deity()
         elif choice == "11":
             create_artifact()
         elif choice == "12":
@@ -84,11 +84,11 @@ def menu():
     print("3. Find Culture by Name")
     print("4. Update Culture")
     print("5. Delete Culture")
-    print("6. Create Diety")
-    print("7. View All Diety")
-    print("8. Find Diety by Name")
-    print("9. Update Diety")
-    print("10. Delete Diety")
+    print("6. Create Deity")
+    print("7. View All Deity")
+    print("8. Find Deity by Name")
+    print("9. Update Deity")
+    print("10. Delete Deity")
     print("11. Create Artifact")
     print("12. View All Artifacts")
     print("13. Find Artifact by Name")
