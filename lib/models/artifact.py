@@ -4,7 +4,8 @@ from models.__init__ import CONN, CURSOR
 class Artifact:
     all = []
     
-    def __init__(self, name, artifact_type, discovered_date, origin_date, culture):
+    def __init__(self, name, artifact_type, discovered_date, origin_date, culture, id=None):
+        self.id = id
         self.name = name
         self.artifact_type = artifact_type
         self.discovered_date = discovered_date
@@ -75,14 +76,14 @@ class Artifact:
                            (self.name, self.artifact_type, self.discovered_date, self.culture_id, self.id))    
             self.id = CURSOR.lastrowid
         else:
-            CURSOR.execute("UPDATE artifacts SET name=?, artifact_type=?, dicovered_date=?, origin_date=?, culture_id=? WHERE id=?",
-                           (self.name, self.artifact_type, self.discovered_date, self.origin_date, slef.culture.id, self.id))
+            CURSOR.execute("UPDATE artifacts SET name=?, artifact_type=?, discovered_date=?, origin_date=?, culture_id=? WHERE id=?",
+                           (self.name, self.artifact_type, self.discovered_date, self.origin_date, self.culture.id, self.id))
         CONN.commit()
 
     @classmethod
     def all_from_db(cls):
         cls.all.clear()
-        CURSOR.execute("SELECT id, name, artifact_type, dicovered_date, origin_date, culture_id FROM artifacts")
+        CURSOR.execute("SELECT id, name, artifact_type, discovered_date, origin_date, culture_id FROM artifacts")
         rows = CURSOR.fetchall()
         print(f"Fetched {len(rows)} artifacts fromm the database.")
         for row in rows:

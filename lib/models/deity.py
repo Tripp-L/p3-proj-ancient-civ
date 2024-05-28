@@ -1,12 +1,13 @@
 # from models.myth import Myth
 # from models.artifact import Artifact
-# from models.culture import Culture
+from models.culture import Culture
 from models.__init__ import CONN, CURSOR
 
 class Deity:
     all = []
 
-    def __init__(self, name, domain, attributes, culture):
+    def __init__(self, name, domain, attributes, culture, id=None):
+        self.id = id
         self.name = name
         self.domain = domain
         self.attributes = attributes
@@ -80,7 +81,22 @@ def save(self):
     else:
         CURSOR.execute("UPDATE deities SET name =?, domain =?, attributes =?, culture_id =? WHERE id =?", (self.name, self.domain, ','.join(self.attributes), self.culture.id, self.id))
     CONN.commit()
-        
 
-    def __repr__(self):
-        return f"<Deity {self.name}>"
+@classmethod
+def all_from_db(cls):
+    cls.all.clear()
+    CURSOR.execute("SELECT id, name, domain, attributes, culture_id FROM deities")
+    rows = CURSOR.fetchall()
+    print(f"Fetched {len(rows)} deities from the database.")
+    for row in rows:
+        culture = next((culture for culture in Culture.all if culture.id == row[4]), None)
+        print(f"Matching culture for deity {row[1]}: {culture}") 
+        if culture:
+            attributes = row[3].split(",")
+            deity = Deity(id=row[0], name=row[1], domain=row[2], attributes=attributes, culture=culture)
+            print(f"Deity loaded: {deity.name} (ID: {deity.id})")
+    print(f"Loaded {len(cls.all)} deities into memory.")
+
+
+def repr(self):
+    return f"<Deity {self.name}, Domain: {self.domain}, Attributes: {', '.join(self.attributes)}, Culture: {self.culture.name}>"    
