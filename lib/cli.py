@@ -30,6 +30,7 @@ from models.artifact import Artifact
 from models.myth import Myth
 
 
+
 def main():
     Culture.all_from_db()
     Deity.all_from_db()

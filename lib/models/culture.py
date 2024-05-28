@@ -76,8 +76,11 @@ class Culture:
         cls.all.clear()
         CURSOR.execute("SELECT id, name, region, era FROM cultures")
         rows = CURSOR.fetchall()
+        print(f"Fetched {len(rows)} cultures from the database.")
         for row in rows:
-            Culture(id=row[0], name=row[1], region=row[2], era=row[3])
+            culture = Culture(id=row[0], name=row[1], region=row[2], era=row[3])
+            print(f"Culture loaded: {culture.name} (ID: {culture.id})")
+        print(f"Loaded {len(cls.all)} cultures into memory.")
     
     def __repr__(self):
         return f"<Culture {self.name}>"

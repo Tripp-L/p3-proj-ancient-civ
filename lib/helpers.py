@@ -84,25 +84,32 @@ def create_deity():
         print(f"Culture {culture_name} not found.")
         
 def view_all_deities():
-    for deity in Deity.all:
-        print(deity)
+    Culture.all_from_db()
+    Deity.all_from_db()
+    if Deity.all:
+        for deity in Deity.all:
+            print(deity)
+    else:
+        print("No deities found.")
         
 def find_deity_by_name():
     name = input("Name: ")
-    deities = [deity for deity in Deity.all if deity.name == name]
-    if deities:
-        for deity in deities:
-            print(deity)
-        else:
-            print(f"Deity {name} not found.")
-            
+    Culture.all_from_db()
+    Deity.all_from_db()
+    deity = next((deity for deity in Deity.all if deity.name == name), None)
+    if deity:
+        print(deity)
+    else:
+        print(f"Deity {name} not found.")
+        
 def update_deity():
     name = input("Name: ")
+    Deity.all_from_db()
     deity = next((deity for deity in Deity.all if deity.name == name), None)
     if deity:
         new_name = input("Enter new name: ")
         new_domain = input("Enter new domain: ")
-        new_attributes = input("Enter new attributes: ")
+        new_attributes = input("Enter new attributes: ").split(", ")
         
         if new_name:
             deity.name = new_name
@@ -111,6 +118,7 @@ def update_deity():
         if new_attributes:
             deity.attributes = new_attributes
             
+        deity.save()    
         print(f"Deity {deity.name} updated!")
     else:
         print(f"Deity {name} not found.")
@@ -144,11 +152,11 @@ def create_artifact():
         
 def view_all_artifacts():
     Artifact.all_from_db()
-    if Artifact.all:    
+    if Artifact.all:
         for artifact in Artifact.all:
             print(artifact)
-        else:
-            print("No artifact found")    
+    else:
+        print("No artifacts found.")
         
 def find_artifact_by_name():
     name = input("Name: ")
