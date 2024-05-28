@@ -12,3 +12,4 @@ def execute_sql_file(filename):
     
 if __name__ == "__main__":
     execute_sql_file('lib/sql/__init__.sql')
+    execute_sql_file('lib/sql/seed.sql')
