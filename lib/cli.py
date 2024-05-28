@@ -24,8 +24,13 @@ from helpers import (
     delete_myth,
 )
 
+from models.culture import Culture
+from models.deity import Deity
+
 
 def main():
+    Culture.all_from_db()
+    Deity.all_from_db()
     while True:
         menu()
         choice = input("> ")
