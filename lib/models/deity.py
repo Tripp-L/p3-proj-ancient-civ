@@ -19,9 +19,9 @@ class Deity:
         return self._name
 
     @name.setter
-    def name(self, value):
-        if isinstance(value, str) and len(value) >= 3:
-            self._name = value
+    def name(self, name):
+        if isinstance(name, str) and len(name) >= 3:
+            self._name = name
         else:
             raise ValueError('Name must be a string with at least 3 characters.')
 
@@ -30,9 +30,9 @@ class Deity:
         return self._domain
 
     @domain.setter
-    def domain(self, value):
-        if isinstance(value, str) and len(value) >= 3:
-            self._domain = value
+    def domain(self, domain):
+        if isinstance(domain, str) and len(domain) >= 3:
+            self._domain = domain
         else:
             raise ValueError('Domain must be a string with at least 3 characters.')
 
@@ -41,9 +41,9 @@ class Deity:
         return self._attributes
 
     @attributes.setter
-    def attributes(self, value):
-        if isinstance(value, list) and all(isinstance(attr, str) for attr in value):
-            self._attributes = value
+    def attributes(self, attributes):
+        if isinstance(attributes, list) and all(isinstance(attr, str) for attr in attributes):
+            self._attributes = attributes
         else:
             raise ValueError('Attributes must be a list of strings.')
 
