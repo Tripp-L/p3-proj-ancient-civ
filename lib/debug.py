@@ -34,7 +34,7 @@ kukulkan = Deity(name='Kukulkan', domain='Wind', attributes=['Feathered Serpent'
 amaterasu = Deity(name='Amaterasu', domain='Sun', attributes=['Sun Goddess', 'Light'], culture=japanese_culture)
 
 parthenon_marbles = Artifact(name='Parthenon Marbles', artifact_type='Statue', discovered_date='1816', origin_date='5th century BC', culture=greek_culture)
-tutankhamun_mask = Artifact(name='Tutankhamun\'s Mask', artifact_type='Mask', discovered_date='1925', origin_date='14th century BC', culture=egyptian_culture)
+tutankhamun_mask = Artifact(name='Tutankhamun''s Mask', artifact_type='Mask', discovered_date='1925', origin_date='14th century BC', culture=egyptian_culture)
 colosseum_ruins = Artifact(name='Colosseum Ruins', artifact_type='Architecture', discovered_date='1748', origin_date='1st century AD', culture=roman_culture)
 mjolnir = Artifact(name='Mjolnir', artifact_type='Weapon', discovered_date='None', origin_date='Norse Mythology', culture=norse_culture)
 ishtar_gate = Artifact(name='Ishtar Gate', artifact_type='Gate', discovered_date='1899', origin_date='6th century BC', culture=mesopotamian_culture)
