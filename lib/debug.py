@@ -57,4 +57,5 @@ amaterasu.add_myth(name='The Radiance of Amaterasu', text='Amaterasu brings ligh
 ipdb.set_trace()
 
 if __name__ == "__main__":
-    main()
+    import cli
+    cli.main()

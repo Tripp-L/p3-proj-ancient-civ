@@ -37,6 +37,10 @@ class Culture:
         
     @property 
     def era(self, era):
+        return self._era 
+    
+    @era.setter
+    def era(self, era):
         if isinstance(era, str) and 1 <= len(era) <= 50:
             self._era = era
         else:
