@@ -1,3 +1,4 @@
+
 from models.deity import Deity
 from models.artifact import Artifact
 
