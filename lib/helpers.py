@@ -30,12 +30,12 @@ def view_all_cultures():
         
 def find_culture_by_name():
     name = input("Name: ")
-    cultures = [culture for culture in Culture.all]
-    if cultures:
-        for culture in cultures:
-            print(culture)
-        else:
-            print(f"Culture {name} not found.")
+    Culture.all_from_db()
+    culture = next((culture for culture in Culture.all if culture.name == name), None)
+    if culture:
+        print(culture)
+    else:
+        print(f"Culture {name} not found.")
             
 def update_culture():
     name = input("Name: ")
@@ -68,8 +68,9 @@ def delete_culture():
 def create_deity():
     name = input("Name: ")
     domain = input("Domain: ")
-    attributes = input("Attributes: ")
+    attributes = input("Attributes: ").split(", ")
     culture_name = input("Culture: ")
+    Culture.all_from_db()
     culture = next((culture for culture in Culture.all if culture.name == culture_name), None)      
     
     if culture:

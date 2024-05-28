@@ -1,5 +1,5 @@
-# from models.deity import Deity
-# from models.artifact import Artifact
+import sqlite3
+from models.__init__ import CONN, CURSOR
 
 class Culture:
     all = []
@@ -57,6 +57,27 @@ class Culture:
         artifact = Artifact(name=name, artifact_type=artifact_type, discovered_date=discovered_date, origin_date=origin_date, culture=self)
         self.artifacts.append(artifact)
         return artifact
+    
+    def save(self):
+        if self.id is None:
+            CURSOR.execute("INSERT INTO cultures (name, region, era) VALUES (?,?,?)", (self.name, self.region, self.era))
+            self.id = CURSOR.lastrowid
+        else:
+            CURSOR.execute("UPDATE cultures SET name=?, region=?, era=? WHERE id=?", (self.name, self.region, self.era, self.id))
+        CONN.commit()
+        
+    def delete(self):
+        CURSOR.execute("DELETE FROM cultures WHERE id=?", (self.id,))
+        CONN.commit()
+        Culture.all.remove(self)
+        
+    @classmethod
+    def all_from_db(cls):
+        cls.all.clear()
+        CURSOR.execute("SELECT id, name, region, era FROM cultures")
+        rows = CURSOR.fetchall()
+        for row in rows:
+            Culture(id=row[0], name=row[1], region=row[2], era=row[3])
     
     def __repr__(self):
         return f"<Culture {self.name}>"
