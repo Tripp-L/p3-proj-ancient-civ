@@ -6,9 +6,13 @@ def execute_sql_file(filename):
         
     conn = sqlite3.connect('development.db')
     cursor = conn.cursor()
-    cursor.executescript(sql_script)
-    conn.commit()
-    conn.close()
+    try:
+        cursor.executescript(sql_script)
+        conn.commit()
+    except sqlite3.Error as e:
+        print("Error executing SQL script:", e)
+    finally:
+        conn.close()    
     
 if __name__ == "__main__":
     execute_sql_file('lib/sql/__init__.sql')

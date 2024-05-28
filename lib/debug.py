@@ -58,6 +58,10 @@ amaterasu.add_myth(name='The Radiance of Amaterasu', text='Amaterasu brings ligh
 ipdb.set_trace()
 
 Culture.all_from_db()
+Deity.all_from_db()
+Artifact.all_from_db()
+Myth.all_from_db()
+
 
 print(Culture.all)
 

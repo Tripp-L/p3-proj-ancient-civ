@@ -36,7 +36,7 @@ class Culture:
             raise ValueError("Region must be a string between 1 and 20 characters.")
         
     @property 
-    def era(self, era):
+    def era(self):
         return self._era 
     
     @era.setter
