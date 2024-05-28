@@ -20,10 +20,10 @@ class Deity:
 
     @name.setter
     def name(self, name):
-        if isinstance(name, str) and len(name) >= 3:
+        if isinstance(name, str) and len(name) >= 2:
             self._name = name
         else:
-            raise ValueError('Name must be a string with at least 3 characters.')
+            raise ValueError('Name must be a string with at least 2 characters.')
 
     @property
     def domain(self):

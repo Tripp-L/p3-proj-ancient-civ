@@ -22,8 +22,11 @@ def create_culture():
         print(e)
         
 def view_all_cultures():
-    for culture in Culture.all:
-        print(culture)
+    if Culture.all:
+        for culture in Culture.all:
+            print(culture)
+    else:
+        print("No cultures found.")
         
 def find_culture_by_name():
     name = input("Name: ")
