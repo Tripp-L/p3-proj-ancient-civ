@@ -1,4 +1,5 @@
-# from models.culture import Culture
+from models.culture import Culture
+from models.__init__ import CONN, CURSOR
 
 class Artifact:
     all = []
@@ -68,7 +69,32 @@ class Artifact:
         else:
             raise ValueError('Culture must be a Culture object')
         
+    def save(self):
+        if self.id is None:
+            CURSOR.execute("INSERT INTO artifacts (name, artifact_type, discovered_date, origin_date, culture_date, culture_id) VALUES (?, ?, ?, ?, ?)",
+                           (self.name, self.artifact_type, self.discovered_date, self.culture_id, self.id))    
+            self.id = CURSOR.lastrowid
+        else:
+            CURSOR.execute("UPDATE artifacts SET name=?, artifact_type=?, dicovered_date=?, origin_date=?, culture_id=? WHERE id=?",
+                           (self.name, self.artifact_type, self.discovered_date, self.origin_date, slef.culture.id, self.id))
+        CONN.commit()
+
+    @classmethod
+    def all_from_db(cls):
+        cls.all.clear()
+        CURSOR.execute("SELECT id, name, artifact_type, dicovered_date, origin_date, culture_id FROM artifacts")
+        rows = CURSOR.fetchall()
+        print(f"Fetched {len(rows)} artifacts fromm the database.")
+        for row in rows:
+            culture = next((culture for culture in Culture.all if culture.id == row[5]), None)
+            if culture:
+                artifact = Artifact(id=row[0], name=row[1], artifact_type=row[2], discovered_date=row[3], origin_date=row[4], culture=culture)      
+                print(f"Artifact loaded: {artifact.name} (ID: {artifact.id})")
+        print(f"Loaded {len(cls.all)} artifacts into memory.")
+
+
+        
     def __repr__(self):
-        return f'<Artifact: {self.name}>'
+        return f'<Artifact: {self.name}, Type: {self.artifact_type}, Discovered: {self.discovered_date}, Origin: {self.origin_date}, Culture: {self.culture.name}>'
     
     

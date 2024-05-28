@@ -1,3 +1,4 @@
+
 from models.deity import Deity
 from models.artifact import Artifact
 
@@ -47,12 +48,16 @@ class Myth:
 
     @deity.setter
     def deity(self, deity):
-        if not isinstance(deity, Deity):
+        if isinstance(deity, Deity):
             self._deity = deity
         else:
             raise ValueError("Deity must be an instance of Deity class")
         
     @property
+    def artifact(self):
+        return self._artifact
+    
+    @artifact.setter
     def artifact(self, artifact):
         if artifact is None or isinstance(artifact, Artifact): 
             self._artifact = artifact

@@ -30,12 +30,12 @@ def view_all_cultures():
         
 def find_culture_by_name():
     name = input("Name: ")
-    cultures = [culture for culture in Culture.all]
-    if cultures:
-        for culture in cultures:
-            print(culture)
-        else:
-            print(f"Culture {name} not found.")
+    Culture.all_from_db()
+    culture = next((culture for culture in Culture.all if culture.name == name), None)
+    if culture:
+        print(culture)
+    else:
+        print(f"Culture {name} not found.")
             
 def update_culture():
     name = input("Name: ")
@@ -68,8 +68,9 @@ def delete_culture():
 def create_deity():
     name = input("Name: ")
     domain = input("Domain: ")
-    attributes = input("Attributes: ")
+    attributes = input("Attributes: ").split(", ")
     culture_name = input("Culture: ")
+    Culture.all_from_db()
     culture = next((culture for culture in Culture.all if culture.name == culture_name), None)      
     
     if culture:
@@ -142,8 +143,12 @@ def create_artifact():
         print(f"Culture {culture_name} not found.")
         
 def view_all_artifacts():
-    for artifact in Artifact.all:
-        print(artifact)
+    Artifact.all_from_db()
+    if Artifact.all:    
+        for artifact in Artifact.all:
+            print(artifact)
+        else:
+            print("No artifact found")    
         
 def find_artifact_by_name():
     name = input("Name: ")
@@ -151,8 +156,8 @@ def find_artifact_by_name():
     if artifacts:
         for artifact in artifacts:
             print(artifact)
-        else:
-            print(f"Artifact {name} not found.")
+    else:
+        print(f"Artifact {name} not found.")
             
 def update_artifact():
     name = input("Name: ")
@@ -207,28 +212,24 @@ def view_all_myths():
             
 def find_myth_by_name():
     name = input("Name: ")
-    myths = [myth for deity in Deity.all for myth in deity.myths if myth.name == name]
-    if myths:
-        for myth in myths:
-            print(myth)
-        else:
-            print(f"Myth {name} not found.")
+    myth = Myth.find_myth_by_name(name)
+    if myth:
+        print(myth)
+    else:
+        print(f"Myth {name} not found.")
+   
     
 def update_myth():
     name = input("Name: ")
-    myth = next((myth for deity in Deity.all for myth in deity.myths if myth.name == name), None)
+    myth = Myth.find_myth_by_name(name)
     if myth:
         new_name = input("Enter new name: ")
         new_description = input("Enter new description: ")
-        
-        if new_name:
-            myth.name = new_name
-        if new_description:
-            myth.description = new_description
-            
+        myth.update_myth(name=new_name, description=new_description)
         print(f"Myth {myth.name} updated!")
     else:
         print(f"Myth {name} not found.")
+  
         
 def delete_myth():
     name = input("Name: ")

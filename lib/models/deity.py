@@ -1,6 +1,7 @@
 # from models.myth import Myth
 # from models.artifact import Artifact
 # from models.culture import Culture
+from models.__init__ import CONN, CURSOR
 
 class Deity:
     all = []
@@ -71,6 +72,15 @@ class Deity:
         if not deities:
             return None
         return max(deities, key=lambda d: len(d.artifacts))
+    
+def save(self):
+    if self.id is None:
+        CURSOR.execute("INSERT INTO deities (name, domain, attributes, culture_id) VALUES (?, ?, ?, ?)", (self.name, self.domain, ','.join(self.attributes), self.culture.id))
+        self.id = CURSOR.lastrowid
+    else:
+        CURSOR.execute("UPDATE deities SET name =?, domain =?, attributes =?, culture_id =? WHERE id =?", (self.name, self.domain, ','.join(self.attributes), self.culture.id, self.id))
+    CONN.commit()
+        
 
     def __repr__(self):
         return f"<Deity {self.name}>"

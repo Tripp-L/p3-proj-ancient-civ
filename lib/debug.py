@@ -1,13 +1,14 @@
 #!/usr/bin/env python3
 # lib/debug.py
+import ipdb
 
 from models.__init__ import CONN, CURSOR
-import ipdb
 from cli import main
 from models.culture import Culture
 from models.deity import Deity
 from models.artifact import Artifact
 from models.myth import Myth
+import cli
 
 
 greek_culture = Culture(name='Ancient Greece', region='Europe', era='Classical Antiquity')
@@ -55,6 +56,14 @@ kukulkan.add_myth(name='The Feathered Serpent', text='Kukulkan is a deity associ
 amaterasu.add_myth(name='The Radiance of Amaterasu', text='Amaterasu brings light and warmth to the world.')
 
 ipdb.set_trace()
+
+Culture.all_from_db()
+Deity.all_from_db()
+Artifact.all_from_db()
+Myth.all_from_db()
+
+
+print(Culture.all)
 
 if __name__ == "__main__":
     import cli
