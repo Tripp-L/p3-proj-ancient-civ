@@ -76,7 +76,7 @@ class Artifact:
             self.id = CURSOR.lastrowid
         else:
             CURSOR.execute("UPDATE artifacts SET name=?, artifact_type=?, dicovered_date=?, origin_date=?, culture_id=? WHERE id=?",
-                           (self.name, self.artifact_type, self.discovered_date, self.origin_date, slef.culture.id, self.id))
+                           (self.name, self.artifact_type, self.discovered_date, self.origin_date, self.culture.id, self.id))
         CONN.commit()
 
     @classmethod
