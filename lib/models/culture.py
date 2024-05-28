@@ -1,5 +1,5 @@
-from models.deity import Deity
-from models.artifact import Artifact
+# from models.deity import Deity
+# from models.artifact import Artifact
 
 class Culture:
     all = []
@@ -9,6 +9,8 @@ class Culture:
         self.name = name
         self.region = region
         self.era = era
+        self.deities = []
+        self.artifacts = []
         Culture.all.append(self)
         
     @property
@@ -35,18 +37,27 @@ class Culture:
         
     @property 
     def era(self, era):
+        return self._era 
+    
+    @era.setter
+    def era(self, era):
         if isinstance(era, str) and 1 <= len(era) <= 50:
             self._era = era
         else:
             raise ValueError("Era must be a string between 1 and 50 characters.")
         
-    def add_diety(self, name, domain, attributes, culture, myth):
+    def add_deity(self, name, domain, attributes):
+        from models.deity import Deity
         deity = Deity(name=name, domain=domain, attributes=attributes, culture=self)
-        self.dieties.append(deity)
+        self.deities.append(deity)
         return deity
     
     def add_artifact(self, name, artifact_type, discovered_date, origin_date):
+        from models.artifact import Artifact
         artifact = Artifact(name=name, artifact_type=artifact_type, discovered_date=discovered_date, origin_date=origin_date, culture=self)
         self.artifacts.append(artifact)
         return artifact
+    
+    def __repr__(self):
+        return f"<Culture {self.name}>"
         
