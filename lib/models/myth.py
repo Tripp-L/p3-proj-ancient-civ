@@ -108,6 +108,8 @@ class Myth:
         print(f"Loaded {len(cls.all)} myths into memory.")
 
     def __repr__(self):
+
         artifact_info = f", Artifact: {self.artifact.name}" if self.artifact else ""
         return f"<Myth {self.name}, Deity: {self.deity.name}{artifact_info}>"
+
     

@@ -213,6 +213,7 @@ def create_myth():
     else:
         print(f"Deity {deity_name} not found.")
         
+
 def view_all_myths():
     Myth.all_from_db()
     if Myth.all:
@@ -220,6 +221,7 @@ def view_all_myths():
             print(myth)
     else:
         print("No myths found.")
+
             
 def find_myth_by_name():
     name = input("Name: ")
