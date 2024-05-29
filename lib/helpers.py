@@ -213,10 +213,14 @@ def create_myth():
     else:
         print(f"Deity {deity_name} not found.")
         
+
 def view_all_myths():
-    for deity in Deity.all:
-        for myth in deity.myths:
+    Myth.all_from_db()
+    if Myth.all:
+        for myth in Myth.all:
             print(myth)
+    else:
+        print("No myths found.")            
             
 def find_myth_by_name():
     name = input("Name: ")

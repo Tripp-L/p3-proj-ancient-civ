@@ -94,6 +94,6 @@ class Myth:
                 print(f"Myth loaded: {myth.name} (ID: {myth.id})")
         print(f"Loaded {len(cls.all)} myths into memory.")
 
-    def repr(self):
+    def __repr__(self):
         return f"<Myth {self.name}, Deity: {self.deity.name}>"
     
