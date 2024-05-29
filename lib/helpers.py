@@ -220,7 +220,8 @@ def view_all_myths():
         for myth in Myth.all:
             print(myth)
     else:
-        print("No myths found.")            
+        print("No myths found.")
+
             
 def find_myth_by_name():
     name = input("Name: ")
@@ -245,11 +246,15 @@ def update_myth():
         
 def delete_myth():
     name = input("Name: ")
-    myths = [myth for deity in Deity.all for myth in deity.myths if myth.name == name]
-    if myths:
-        for myth in myths:
-            myth.deity.remove_myth(myth)
-            print(f"Myth {myth.name} deleted!")
-        else:
-            print(f"Myth {name} not found.")
+    myth = Myth.find_myth_by_name(name)
+    if myth:
+        try:
+            myth.deity.myths.remove(myth)
+        except ValueError:
+            print(f"Myth {myth.name} not found in deity's myths list.")
+        myth.delete()
+        print(f"Myth {myth.name} deleted!")
+    else:
+        print(f"Myth {name} not found.")
+
 

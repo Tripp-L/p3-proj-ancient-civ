@@ -22,7 +22,12 @@ class Myth:
 
     @staticmethod
     def view_all_myths():
-        return Myth.all
+        Myth.all_from_db() 
+        if Myth.all:
+            for myth in Myth.all:
+                print(myth)
+        else:
+            print("No myths found.")
 
     @classmethod
     def find_myth_by_name(cls, name):
@@ -37,10 +42,17 @@ class Myth:
             self.deity = deity
         if artifact:
             self.artifact = artifact
+            
+    def delete(self):
+        CURSOR.execute("DELETE FROM myths WHERE id = ?", (self.id,))
+        CONN.commit()
+        Myth.all.remove(self)
 
     @classmethod
     def delete_myth(cls, myth):
         cls.all.remove(myth)
+        CURSOR.execute("DELETE FROM myths WHERE id = ?", (myth.id,))
+        CONN.commit()
 
     @property
     def deity(self):
@@ -91,9 +103,13 @@ class Myth:
             deity = next((deity for deity in Deity.all if deity.id == row[3]), None)
             if deity:
                 myth = Myth(id=row[0], name=row[1], description=row[2], deity=deity)
+                deity.myths.append(myth)
                 print(f"Myth loaded: {myth.name} (ID: {myth.id})")
         print(f"Loaded {len(cls.all)} myths into memory.")
 
     def __repr__(self):
-        return f"<Myth {self.name}, Deity: {self.deity.name}>"
+
+        artifact_info = f", Artifact: {self.artifact.name}" if self.artifact else ""
+        return f"<Myth {self.name}, Deity: {self.deity.name}{artifact_info}>"
+
     
