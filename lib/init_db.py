@@ -15,5 +15,5 @@ def execute_sql_file(filename):
         conn.close()    
     
 if __name__ == "__main__":
-    execute_sql_file('lib/sql/__init__.sql')
-    execute_sql_file('lib/sql/seed.sql')
+    execute_sql_file('sql/__init__.sql')
+    execute_sql_file('sql/seed.sql')
